@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function init() {
+
+
+            var Socket = "MozWebSocket" in window ? MozWebSocket : WebSocket;
+            var ws = new Socket("ws://localhost:8090");
+            ws.onmessage = function(evt) { eval(evt.data);  };
+            ws.onclose = function(event) {
+                debug("Closed - code: " + event.code + ", reason: " + event.reason + ", wasClean: " + event.wasClean);
+            };
+            ws.onopen = function() {
+               Console.log('Web socket opened');
+            };
+        };
+    </script>
+    <style>
+        #color{
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 20%;
+            height: 10%;
+            background-color: aliceblue;
+            text-align: center;
+            padding-top: 60px;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+            border-color: black ;
+            border: 1px solid;
+        }
+
+        body{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body onload="init();">
+    <div id="color">
+        <span id="span-color"><strong>Color: </strong> #000000 </span>
+    </div>
+</body>
+</html>
